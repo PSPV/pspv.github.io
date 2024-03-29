@@ -46,21 +46,21 @@
   <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img src="/assets/img/bg-masthead.jpg" class="d-block w-100" alt="100px">
+        <img src="/assets/img/bg-masthead.jpg" class="d-block w-100" alt="Imagen 1">
       </div>
       <div class="carousel-item">
-        <img src="ruta/a/la/imagen2.jpg" class="d-block w-100" alt="100px">
+        <img src="ruta/a/la/imagen2.jpg" class="d-block w-100" alt="Imagen 2">
       </div>
       <!-- Agrega más divs .carousel-item según sea necesario para más imágenes -->
     </div>
-    <a class="carousel-control-prev" href="#carouselExampleSlidesOnly" role="button" data-bs-slide="prev">
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleSlidesOnly" data-bs-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Anterior</span>
-    </a>
-    <a class="carousel-control-next" href="#carouselExampleSlidesOnly" role="button" data-bs-slide="next">
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleSlidesOnly" data-bs-slide="next">
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Siguiente</span>
-    </a>
+    </button>
   </div>
 
   <div class="container mt-5">
@@ -73,7 +73,33 @@
     // Ruta del archivo JSON
     const archivoJSON = 'js/temas.json';
   
-    // Obtener y procesar datos del archivo JSON
+    // Crear una función para generar los bloques desplegables
+    function generarBloquesDesplegables(data) {
+      const accordionTemas = document.getElementById('accordionTemas');
+      data.forEach((tema, index) => {
+        const temaID = `tema-${index}`;
+        const collapseID = `collapse-${index}`;
+        
+        // Crear el botón del encabezado del bloque desplegable
+        const accordionHeader = `
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="${temaID}">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#${collapseID}" aria-expanded="true" aria-controls="${collapseID}">
+                ${tema.titulo}
+              </button>
+            </h2>
+            <div id="${collapseID}" class="accordion-collapse collapse" aria-labelledby="${temaID}" data-bs-parent="#accordionTemas">
+              <div class="accordion-body">
+                ${tema.contenido}
+              </div>
+            </div>
+          </div>
+        `;
+        accordionTemas.innerHTML += accordionHeader;
+      });
+    }
+
+    // Obtener y procesar datos del archivo JSON usando Fetch API
     fetch(archivoJSON)
       .then(response => {
         if (!response.ok) {
@@ -82,29 +108,8 @@
         return response.json();
       })
       .then(data => {
-        // Generar bloques desplegables para cada tema
-        const accordionTemas = document.getElementById('accordionTemas');
-        data.forEach((tema, index) => {
-          const temaID = `tema-${index}`;
-          const collapseID = `collapse-${index}`;
-          
-          // Crear el botón del encabezado del bloque desplegable
-          const accordionHeader = `
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="${temaID}">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#${collapseID}" aria-expanded="true" aria-controls="${collapseID}">
-                  ${tema.titulo}
-                </button>
-              </h2>
-              <div id="${collapseID}" class="accordion-collapse collapse" aria-labelledby="${temaID}" data-bs-parent="#accordionTemas">
-                <div class="accordion-body">
-                  ${tema.contenido}
-                </div>
-              </div>
-            </div>
-          `;
-          accordionTemas.innerHTML += accordionHeader;
-        });
+        // Llamar a la función para generar los bloques desplegables
+        generarBloquesDesplegables(data);
       })
       .catch(error => {
         console.error('Error:', error);
@@ -115,3 +120,4 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
