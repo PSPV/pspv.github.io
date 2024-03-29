@@ -443,6 +443,38 @@
         }
 
         // Llamar a la función para establecer el enlace activo al cargar la página
+    document.addEventListener("DOMContentLoaded", function() {
+        const navbarLinks = document.querySelectorAll(".navbar-nav .nav-link");
+
+        // Función para verificar qué enlace del navbar debe estar activo
+        function updateActiveLink() {
+            let currentSection = "";
+
+            // Obtener el desplazamiento vertical actual
+            const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+
+            // Iterar sobre cada sección y verificar si está visible
+            document.querySelectorAll("section[id]").forEach(function(section) {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute("id");
+
+                if (scrollPosition >= sectionTop - 50 && scrollPosition < sectionTop + sectionHeight - 50) {
+                    currentSection = sectionId;
+                }
+            });
+
+            // Agregar la clase "active" al enlace del navbar correspondiente y quitarla de los demás
+            navbarLinks.forEach(function(link) {
+                if (link.getAttribute("href").substring(1) === currentSection) {
+                    link.classList.add("active");
+                } else {
+                    link.classList.remove("active");
+                }
+            });
+        }
+
+        // Llamar a la función para establecer el enlace activo al cargar la página
         updateActiveLink();
 
         // Actualizar el enlace activo al hacer clic en un enlace del navbar
@@ -461,7 +493,7 @@
                         behavior: "smooth"
                     });
 
-                    // Actualizar el enlace activo después de un breve retraso para permitir el desplazamiento
+                    // Actualizar el enlace activo después del desplazamiento
                     setTimeout(function() {
                         updateActiveLink();
                     }, 300);
