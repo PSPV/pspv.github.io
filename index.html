@@ -90,8 +90,9 @@
         display: block !important;
       }
 
- /* Estilos para resaltar los elementos del navbar como botones cuando se hace foco en ellos */
-        .navbar-nav .nav-link:focus {
+   /* Estilos para resaltar los elementos del navbar como botones cuando se hace foco en ellos */
+        .navbar-nav .nav-link:focus,
+        .navbar-nav .nav-link.active {
             background-color: #ffffff; /* Fondo blanco */
             color: #6c757d; /* Texto rojo oscuro */
             border: 1px solid #6c757d; /* Borde rojo oscuro */
@@ -179,7 +180,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#propuestas">NUESTRAS PROPUESTAS</a>
                         </li>
-			    <li class="nav-item">
+                        <li class="nav-item">
                             <a class="nav-link" href="#participa">PARTICIPA</a>
                         </li>
                     </ul>
@@ -404,6 +405,30 @@
     .catch(error => {
       console.error('Error:', error);
     });
+
+        // Script para cambiar la clase activa en los elementos del navbar al desplazarse por la página
+        document.addEventListener("DOMContentLoaded", function() {
+            const navbarLinks = document.querySelectorAll(".navbar-nav .nav-link");
+
+            function highlightNavbarLink() {
+                const scrollPosition = window.scrollY;
+
+                navbarLinks.forEach(link => {
+                    const section = document.querySelector(link.getAttribute("href"));
+
+                    if (section.offsetTop <= scrollPosition && section.offsetTop + section.offsetHeight > scrollPosition) {
+                        link.classList.add("active");
+                    } else {
+                        link.classList.remove("active");
+                    }
+                });
+            }
+
+            highlightNavbarLink();
+            window.addEventListener("scroll", highlightNavbarLink);
+        });
+
+	
 </script>
 
 
