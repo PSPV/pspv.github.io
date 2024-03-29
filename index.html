@@ -408,6 +408,8 @@
     });
 
 
+
+
 	
         // Script para cambiar la clase activa en los elementos del navbar al desplazarse por la página
 
@@ -416,18 +418,18 @@
 
         // Función para verificar qué enlace del navbar debe estar activo
         function updateActiveLink() {
-            let currentSection = "";
+            let currentSection = null;
 
             // Obtener el desplazamiento vertical actual
             const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
 
             // Iterar sobre cada sección y verificar si está visible
             document.querySelectorAll("section[id]").forEach(function(section) {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.offsetHeight;
+                const sectionTop = section.offsetTop - 50;
+                const sectionBottom = sectionTop + section.offsetHeight;
                 const sectionId = section.getAttribute("id");
 
-                if (scrollPosition >= sectionTop - 50 && scrollPosition < sectionTop + sectionHeight - 50) {
+                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
                     currentSection = sectionId;
                 }
             });
@@ -440,12 +442,6 @@
                     link.classList.remove("active");
                 }
             });
-
-            // Mantener el foco en el enlace activo
-            const activeLink = document.querySelector('.navbar-nav .nav-link.active');
-            if (activeLink) {
-                activeLink.focus();
-            }
         }
 
         // Llamar a la función para establecer el enlace activo al cargar la página
