@@ -108,7 +108,11 @@
     color: #ffffff; /* Color blanco para enlace activo */
 }
     
-	    
+  #contador {
+        font-size: 24px;
+        font-weight: bold;
+        color: blue;
+    }	    
     </style>
 
     
@@ -304,7 +308,9 @@
       <!-- Los datos se cargarán aquí desde el archivo JSON -->
     </tbody>
   </table>
+<p>Cuanto dinero han gastado en empresas de fuera:</p>
 
+<div id="contador">0</div>
 	</div>
       <div class="col-md-5">
         <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-bg)"/><text x="50%" y="50%" fill="var(--bs-secondary-color)" dy=".3em">500x500</text></svg>
@@ -485,6 +491,23 @@
             updateActiveLink();
         });
     });
+
+
+
+	// Función para animar el contador
+    function contarHasta(numeroFinal) {
+        var contador = 0;
+        var intervalo = setInterval(function() {
+            contador++;
+            document.getElementById("contador").innerText = contador;
+            if (contador === numeroFinal) {
+                clearInterval(intervalo);
+            }
+        }, 100); // Cambia la velocidad ajustando este valor
+    }
+
+    // Llamar a la función para contar hasta 100 (por ejemplo)
+    contarHasta(900070);
 	
 </script>
 
