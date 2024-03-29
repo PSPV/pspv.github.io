@@ -410,10 +410,12 @@
 
 	
         // Script para cambiar la clase activa en los elementos del navbar al desplazarse por la página
- document.addEventListener("DOMContentLoaded", function() {
+
+    document.addEventListener("DOMContentLoaded", function() {
         const navbarLinks = document.querySelectorAll(".navbar-nav .nav-link");
 
-        window.addEventListener("scroll", function() {
+        // Función para verificar qué enlace del navbar debe estar activo
+        function updateActiveLink() {
             let currentSection = "";
 
             // Obtener el desplazamiento vertical actual
@@ -438,16 +440,38 @@
                     link.classList.remove("active");
                 }
             });
+        }
+
+        // Llamar a la función para establecer el enlace activo al cargar la página
+        updateActiveLink();
+
+        // Actualizar el enlace activo al hacer clic en un enlace del navbar
+        navbarLinks.forEach(function(link) {
+            link.addEventListener("click", function(event) {
+                // Evitar el comportamiento predeterminado del enlace
+                event.preventDefault();
+
+                const targetId = this.getAttribute("href").substring(1);
+                const targetSection = document.getElementById(targetId);
+
+                // Desplazarse suavemente a la sección correspondiente
+                if (targetSection) {
+                    window.scrollTo({
+                        top: targetSection.offsetTop,
+                        behavior: "smooth"
+                    });
+
+                    // Actualizar el enlace activo después de un breve retraso para permitir el desplazamiento
+                    setTimeout(function() {
+                        updateActiveLink();
+                    }, 300);
+                }
+            });
         });
 
-        // Al hacer clic en un enlace del navbar, agregar la clase "active" al enlace y quitarla de los demás
-        navbarLinks.forEach(function(link) {
-            link.addEventListener("click", function() {
-                navbarLinks.forEach(function(navbarLink) {
-                    navbarLink.classList.remove("active");
-                });
-                this.classList.add("active");
-            });
+        // Actualizar el enlace activo al desplazarse por la página
+        window.addEventListener("scroll", function() {
+            updateActiveLink();
         });
     });
 	
