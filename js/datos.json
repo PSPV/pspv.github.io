@@ -1,20 +1,36 @@
-[
-  {
-    "id": 1,
-    "nombre": "Juan",
-    "apellido": "Pérez",
-    "edad": 30
-  },
-  {
-    "id": 2,
-    "nombre": "María",
-    "apellido": "García",
-    "edad": 25
-  },
-  {
-    "id": 3,
-    "nombre": "Pedro",
-    "apellido": "López",
-    "edad": 35
-  }
-]
+{
+  "temas": [
+    {
+      "titulo": "Tema 1",
+      "contenido": "Contenido del tema 1..."
+    },
+    {
+      "titulo": "Tema 2",
+      "contenido": "Contenido del tema 2..."
+    },
+    {
+      "titulo": "Tema 3",
+      "contenido": "Contenido del tema 3..."
+    }
+  ],
+  "datos": [
+    {
+      "id": 1,
+      "nombre": "Juan",
+      "apellido": "Pérez",
+      "edad": 30
+    },
+    {
+      "id": 2,
+      "nombre": "María",
+      "apellido": "García",
+      "edad": 25
+    },
+    {
+      "id": 3,
+      "nombre": "Pedro",
+      "apellido": "López",
+      "edad": 35
+    }
+  ]
+}
