@@ -30,13 +30,39 @@
             width: 100%; /* Ajusta la anchura de la imagen al 100% del contenedor */
             height: 100%; /* Ajusta la altura de la imagen al 100% del contenedor */
         }
+
+        /* Estilos para el logo en la barra de navegación */
+        .navbar-brand img {
+            max-height: 40px; /* Altura máxima del logo */
+            margin-right: 10px; /* Espaciado derecho para separar el logo del texto */
+        }
+
+        /* Estilos para cambiar los colores a rojo */
+        .link-body-emphasis {
+            color: red !important; /* Color rojo para los enlaces */
+        }
+
+        .nav-link,
+        .navbar-toggler-icon {
+            color: red !important; /* Color rojo para los enlaces de la barra de navegación */
+        }
+
+        .navbar-nav .nav-link.active {
+            color: white !important; /* Color blanco para los enlaces activos */
+            background-color: red !important; /* Color de fondo rojo para los enlaces activos */
+        }
+
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            color: red; /* Color rojo para las flechas de control del carrusel */
+        }
     </style>
 </head>
 <body id="page-top">
    <div class="container">
     <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+      <a href="/" class="navbar-brand d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/d/dc/Logo_pspv.png" alt="PSOE Algemesí Logo">
         <span class="fs-4">Simple header</span>
       </a>
 
@@ -107,7 +133,7 @@
       });
     }
 
-    // Obtener y procesar datos del archivo JSON usando Fetch API
+    // Obtener y procesar datos del archivo JSON
     fetch(archivoJSON)
       .then(response => {
         if (!response.ok) {
@@ -116,8 +142,7 @@
         return response.json();
       })
       .then(data => {
-        // Llamar a la función para generar los bloques desplegables
-        generarBloquesDesplegables(data);
+        generarBloquesDesplegables(data); // Llama a la función para generar los bloques desplegables
       })
       .catch(error => {
         console.error('Error:', error);
@@ -128,3 +153,4 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
