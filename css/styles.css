@@ -1,11 +1,12 @@
-  /* Establecer altura del carrusel al 50% de la pantalla */
+   /* Establecer altura del carrusel al 50% de la pantalla */
         #carouselExampleSlidesOnly {
             height: 50vh; /* 50% de la altura de la ventana */
+            overflow: hidden; /* Oculta cualquier desbordamiento de la imagen */
         }
 
         /* Establecer un tamaño máximo para las imágenes en el carrusel */
-        #carouselExampleSlidesOnly img {
-            max-width: 100%; /* Ajusta el ancho máximo de la imagen al tamaño del contenedor */
-            max-height: 100%; /* Ajusta la altura máxima de la imagen al tamaño del contenedor */
+        #carouselExampleSlidesOnly .carousel-inner .carousel-item img {
             object-fit: cover; /* Cubre el área del contenedor con la imagen sin distorsionarla */
+            width: 100%; /* Ajusta la anchura de la imagen al 100% del contenedor */
+            height: 100%; /* Ajusta la altura de la imagen al 100% del contenedor */
         }
