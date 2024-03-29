@@ -326,66 +326,69 @@
 
 
 <script>
-  // Ruta del archivo JSON
-  const archivoJSON = 'js/datos.json';
+  document.addEventListener("DOMContentLoaded", function() {
+    // Ruta del archivo JSON
+    const archivoJSON = 'js/datos.json';
 
-  // Crear una función para generar los bloques desplegables
-  function generarBloquesDesplegables(data) {
-    const accordionTemas = document.getElementById('accordionTemas');
-    data.temas.forEach((tema, index) => {
-      const temaID = `tema-${index}`;
-      const collapseID = `collapse-${index}`;
-      
-      // Crear el botón del encabezado del bloque desplegable
-      const accordionHeader = `
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="${temaID}">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#${collapseID}" aria-expanded="true" aria-controls="${collapseID}">
-              ${tema.titulo}
-            </button>
-          </h2>
-          <div id="${collapseID}" class="accordion-collapse collapse" aria-labelledby="${temaID}" data-bs-parent="#accordionTemas">
-            <div class="accordion-body">
-              ${tema.contenido}
+    // Crear una función para generar los bloques desplegables
+    function generarBloquesDesplegables(data) {
+      const accordionTemas = document.getElementById('accordionTemas');
+      data.temas.forEach((tema, index) => {
+        const temaID = `tema-${index}`;
+        const collapseID = `collapse-${index}`;
+
+        // Crear el botón del encabezado del bloque desplegable
+        const accordionHeader = `
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="${temaID}">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#${collapseID}" aria-expanded="true" aria-controls="${collapseID}">
+                ${tema.titulo}
+              </button>
+            </h2>
+            <div id="${collapseID}" class="accordion-collapse collapse" aria-labelledby="${temaID}" data-bs-parent="#accordionTemas">
+              <div class="accordion-body">
+                ${tema.contenido}
+              </div>
             </div>
           </div>
-        </div>
-      `;
-      accordionTemas.innerHTML += accordionHeader;
-    });
-  }
+        `;
+        accordionTemas.innerHTML += accordionHeader;
+      });
+    }
 
-  // Crear una función para generar la tabla desde el archivo JSON
-  function generarTablaDesdeJSON(data) {
-    const tablaBody = document.getElementById('tabla-body');
-    data.datos.forEach((item) => {
-      const row = document.createElement('tr');
-      row.innerHTML = `
-        <td>${item.id}</td>
-        <td>${item.nombre}</td>
-        <td>${item.apellido}</td>
-        <td>${item.edad}</td>
-      `;
-      tablaBody.appendChild(row);
-    });
-  }
+    // Crear una función para generar la tabla desde el archivo JSON
+    function generarTablaDesdeJSON(data) {
+      const tablaBody = document.getElementById('tabla-body');
+      data.datos.forEach((item) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${item.id}</td>
+          <td>${item.nombre}</td>
+          <td>${item.apellido}</td>
+          <td>${item.edad}</td>
+        `;
+        tablaBody.appendChild(row);
+      });
+    }
 
-  // Obtener y procesar datos del archivo JSON
-  fetch(archivoJSON)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('No se pudo cargar el archivo JSON');
-      }
-      return response.json();
-    })
-    .then(data => {
-      generarBloquesDesplegables(data); // Llama a la función para generar los bloques desplegables
-      generarTablaDesdeJSON(data); // Llama a la función para generar la tabla
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
+    // Obtener y procesar datos del archivo JSON
+    fetch(archivoJSON)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('No se pudo cargar el archivo JSON');
+        }
+        return response.json();
+      })
+      .then(data => {
+        generarBloquesDesplegables(data); // Llama a la función para generar los bloques desplegables
+        generarTablaDesdeJSON(data); // Llama a la función para generar la tabla
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  });
 </script>
+
 
     </body>
 </html>
