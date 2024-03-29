@@ -406,6 +406,8 @@
       console.error('Error:', error);
     });
 
+
+	
         // Script para cambiar la clase activa en los elementos del navbar al desplazarse por la página
         document.addEventListener("DOMContentLoaded", function() {
             const navbarLinks = document.querySelectorAll(".navbar-nav .nav-link");
@@ -415,11 +417,12 @@
 
                 navbarLinks.forEach(link => {
                     const section = document.querySelector(link.getAttribute("href"));
-
-                    if (section.offsetTop <= scrollPosition && section.offsetTop + section.offsetHeight > scrollPosition) {
-                        link.classList.add("active");
-                    } else {
-                        link.classList.remove("active");
+                    if (section) {
+                        if (section.offsetTop <= scrollPosition && section.offsetTop + section.offsetHeight > scrollPosition) {
+                            link.classList.add("active");
+                        } else {
+                            link.classList.remove("active");
+                        }
                     }
                 });
             }
@@ -427,7 +430,6 @@
             highlightNavbarLink();
             window.addEventListener("scroll", highlightNavbarLink);
         });
-
 	
 </script>
 
