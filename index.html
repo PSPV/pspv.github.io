@@ -108,11 +108,16 @@
     color: #ffffff; /* Color blanco para enlace activo */
 }
     
-  #contador {
+    #contador {
         font-size: 60px;
         font-weight: bold;
         color: blue;
-    }	    
+        opacity: 0; /* Inicialmente oculto */
+        transition: opacity 0.5s ease-in-out; /* Transición suave */
+    }
+    .contador-visible {
+        opacity: 1; /* Mostrar cuando sea visible */
+    }   
     </style>
 
     
@@ -495,19 +500,34 @@
 
 
 	// Función para animar el contador
+    var contadorElement = document.getElementById("contador");
+
+    // Función para animar el contador
     function contarHasta(numeroFinal) {
         var contador = 0;
         var intervalo = setInterval(function() {
             contador++;
-            document.getElementById("contador").innerText = contador;
+            contadorElement.innerText = contador;
             if (contador === numeroFinal) {
                 clearInterval(intervalo);
             }
-        }, 10000); // Cambia la velocidad ajustando este valor
+        }, 100); // Cambia la velocidad ajustando este valor
     }
 
-    // Llamar a la función para contar hasta 100 (por ejemplo)
-    contarHasta(900070);
+    // Configuración del Intersection Observer
+    var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                // Cuando el contador es visible, comenzar a contar hasta 100
+                contarHasta(900070);
+                // Dejar de observar una vez que se ha iniciado el contador
+                observer.unobserve(entry.target);
+            }
+        });
+    });
+
+    // Observar el contador
+    observer.observe(contadorElement);
 	
 </script>
 
