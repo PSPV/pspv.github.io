@@ -131,6 +131,23 @@
     </div>
   </div>
 
+<div class="container mt-5">
+  <h2>Tabla de datos</h2>
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Edad</th>
+      </tr>
+    </thead>
+    <tbody id="tabla-body">
+      <!-- Los datos se cargarán aquí desde el archivo JSON -->
+    </tbody>
+  </table>
+</div>
+
 <script>
     // Ruta del archivo JSON
     const archivoJSON = 'js/temas.json';
@@ -176,6 +193,42 @@
         console.error('Error:', error);
       });
   </script>
+
+<script>
+  // Ruta del archivo JSON
+  const archivoJSON = 'js/datos.json';
+
+  // Crear una función para generar la tabla desde el archivo JSON
+  function generarTablaDesdeJSON(data) {
+    const tablaBody = document.getElementById('tabla-body');
+    data.forEach((item) => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${item.id}</td>
+        <td>${item.nombre}</td>
+        <td>${item.apellido}</td>
+        <td>${item.edad}</td>
+      `;
+      tablaBody.appendChild(row);
+    });
+  }
+
+  // Obtener y procesar datos del archivo JSON
+  fetch(archivoJSON)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('No se pudo cargar el archivo JSON');
+      }
+      return response.json();
+    })
+    .then(data => {
+      generarTablaDesdeJSON(data); // Llama a la función para generar la tabla
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+</script>
+
 
   <!-- JavaScript de Bootstrap -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
